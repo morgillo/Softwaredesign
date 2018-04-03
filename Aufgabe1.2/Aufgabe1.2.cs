@@ -16,32 +16,31 @@ namespace Aufgabe1._1
         }
 
         static void sentence(string randomSentence)
-        {
-            Random r0 = new Random ();
-            Random r1 = new Random ();
-            Random r2 = new Random ();
-
+        {  
+            
             for ( int i = 0; i <= 4; i++)
             {
-                Console.WriteLine(subjects[randomSub()] + " " + verbs[randomVerb()] + " " + objects[randomObj()]);
-                if 
+                Console.WriteLine(subjects[randomSub(r0)] + " " + verbs[randomVerb(r1)] + " " + objects[randomObj(r2)]);
             }
-            
-            static randomSub()
+        }
+        
+          static int randomSub()
             {
+                 Random r0 = new Random ();
                 return r0.Next(0, subjects.Length);
             }
 
-            static randomVerb()
+            static int randomVerb()
             {
+                Random r1 = new Random ();
                 return r1.Next(0, verbs.Length);
             }
 
-            static randomObj()
+            static int randomObj()
             {
-                return r2.Next(0, objects.Lenght);
-            }
+                Random r2 = new Random ();
 
-        }
+                return r2.Next(0, objects.Length);
+            }
     }
 }
