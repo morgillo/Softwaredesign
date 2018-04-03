@@ -19,7 +19,7 @@ namespace Aufgabe1._1
         {
             for ( int i = 0; i <= 4; i++)
             {
-                Console.WriteLine(subjects[randomSub()] + " " + verbs[randomVerb()] + " " + objects[randomObj()])
+                Console.WriteLine(subjects[randomSub()] + " " + verbs[randomVerb()] + " " + objects[randomObj()]);
             }
 
         }
