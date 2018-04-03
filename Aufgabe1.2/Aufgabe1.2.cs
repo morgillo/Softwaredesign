@@ -17,34 +17,31 @@ namespace Aufgabe1._1
 
         static void sentence(string randomSentence)
         {
+            Random r0 = new Random ();
+            Random r1 = new Random ();
+            Random r2 = new Random ();
+
             for ( int i = 0; i <= 4; i++)
             {
                 Console.WriteLine(subjects[randomSub()] + " " + verbs[randomVerb()] + " " + objects[randomObj()]);
+                if 
+            }
+            
+            static randomSub()
+            {
+                return r0.Next(0, subjects.Length);
+            }
+
+            static randomVerb()
+            {
+                return r1.Next(0, verbs.Length);
+            }
+
+            static randomObj()
+            {
+                return r2.Next(0, objects.Lenght);
             }
 
         }
-
-        static int randomSub()
-        {
-            Random s = new Random();
-            int r = s.Next(0, subjects.Length);
-            return r;
-        }
-
-           static int randomVerb()
-        {
-            Random v = new Random();
-            int r = s.Next(0, verbs.Length);
-            return r;
-        }
-
-           static int randomObj()
-        {
-            Random o = new Random();
-            int r = s.Next(0, objects.Length);
-            return r;
-        }
-
-
     }
 }
