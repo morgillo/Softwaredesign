@@ -1,0 +1,3 @@
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe1.2\obj\Debug\netcoreapp2.0\Aufgabe1.2.csproj.CoreCompileInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe1.2\obj\Debug\netcoreapp2.0\Aufgabe1.2.AssemblyInfoInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe1.2\obj\Debug\netcoreapp2.0\Aufgabe1.2.AssemblyInfo.cs
