@@ -1,0 +1,10 @@
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\bin\Debug\netcoreapp2.0\Aufgabe2.deps.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\bin\Debug\netcoreapp2.0\Aufgabe2.runtimeconfig.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\bin\Debug\netcoreapp2.0\Aufgabe2.runtimeconfig.dev.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\bin\Debug\netcoreapp2.0\Aufgabe2.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\bin\Debug\netcoreapp2.0\Aufgabe2.pdb
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\obj\Debug\netcoreapp2.0\Aufgabe2.csproj.CoreCompileInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\obj\Debug\netcoreapp2.0\Aufgabe2.AssemblyInfoInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\obj\Debug\netcoreapp2.0\Aufgabe2.AssemblyInfo.cs
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\obj\Debug\netcoreapp2.0\Aufgabe2.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe2\obj\Debug\netcoreapp2.0\Aufgabe2.pdb
