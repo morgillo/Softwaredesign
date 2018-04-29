@@ -30,13 +30,12 @@ namespace Aufgabe4
     }
     class TreeNode<T>
     {
+        private List<TreeNode<T>> _children = new List<TreeNode<T>>();
         private T _item;
-        private TreeNode<T> _parentNode;
-        private List<TreeNode<T>> _children;
+        private TreeNode<T> _parentNode { get; set; }
 
         public TreeNode()
         {
-            _children = null;
         }
 
         public TreeNode<T> CreateNode(T item)
@@ -48,12 +47,10 @@ namespace Aufgabe4
         public TreeNode(T item)
         {
             _item = item;
-
         }
-
+ 
         public void AppendChild(TreeNode<T> child)
         {
-            // If necessary, grow the array
             _children.Add(child);
             child._parentNode = this;
         }
