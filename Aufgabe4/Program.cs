@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Aufgabe4
+namespace A4
 {
-    class Programm
+    class Program
     {
         static void Main(string[] args)
         {
@@ -23,49 +23,83 @@ namespace Aufgabe4
             child2.AppendChild(grand21);
             child1.RemoveChild(grand12);
 
-            Console.WriteLine(root.PrintTree());
+            root.PrintTree("");     
         }
 
+        class TreeNode<T>
+        {
+            private T _item;  
+            private TreeNode<T> _parentNode;
+            private List<TreeNode<T>> _children;
+            private List<TreeNode<T>> sublist; 
+            public TreeNode()
+            {
 
+            }
+
+            public TreeNode<T> CreateNode(T item)
+            {
+                TreeNode<T> node = new TreeNode<T>();
+                node._item = item;
+                return node;
+            }
+            public TreeNode(T item)
+            {
+                _item = item;                                        
+            }
+
+            public TreeNode(T item, TreeNode<T> _parentNode)
+            {
+                _item = item;
+                _parentNode.AppendChild(this);                      
+            }
+
+            public void AppendChild(TreeNode<T> child)
+            {
+                if (_children == null)
+                {                              
+                    _children = new List<TreeNode<T>> { child };       
+                }
+                else
+                {
+                    _children.Add(child);                           
+                }
+                child._parentNode = this;                           
+            }                                                       
+
+            public void RemoveChild(TreeNode<T> child)
+            {
+                _children.Remove(child);
+            }
+
+            public void PrintTree(String sternchen)
+            {                    
+                Console.WriteLine(sternchen + _item.ToString());        
+                if (_children != null)
+                {                                 
+                    foreach (var child in _children)
+                    {
+                        child.PrintTree(sternchen + "*");                 
+                    }
+                }
+            }
+
+            public List<TreeNode<T>> FindAll (T search, List<TreeNode<T>> All =  null)
+            {
+                if (All == null)
+            {
+                All = new List<TreeNode<T>>();
+            }
+            if (_item.Equals(search))
+            {
+                All.Add(this);
+            }
+            foreach (TreeNode<T> child in _children)
+            {
+                child.FindAll(search, All);
+            }
+            return All;
+            }
+        }
     }
-    class TreeNode<T>
-    {
-        private List<TreeNode<T>> _children = new List<TreeNode<T>>();
-        private T _item;
-        private TreeNode<T> _parentNode { get; set; }
-
-        public TreeNode()
-        {
-        }
-
-        public TreeNode<T> CreateNode(T item)
-        {
-            TreeNode<T> node = new TreeNode<T>();
-            node._item = item;
-            return node;
-        }
-        public TreeNode(T item)
-        {
-            _item = item;
-        }
- 
-        public void AppendChild(TreeNode<T> child)
-        {
-            _children.Add(child);
-            child._parentNode = this;
-        }
-
-        public void RemoveChild(TreeNode<T> child)
-        {
-            _children.Remove(child);
-        }
-
-        public string PrintTree()
-        {
-
-            return _item.ToString();
-        }
-
-    }
-
 }
