@@ -31,7 +31,7 @@ namespace A4
             private T _item;  
             private TreeNode<T> _parentNode;
             private List<TreeNode<T>> _children;
-            private List<TreeNode<T>> sublist; 
+            //private List<TreeNode<T>> sublist;
             public TreeNode()
             {
 
@@ -83,22 +83,21 @@ namespace A4
                     }
                 }
             }
+            
+            public List<TreeNode<T>> FindAll (T search)
+            {
+            var found = new List<TreeNode<T>>();
 
-            public List<TreeNode<T>> FindAll (T search, List<TreeNode<T>> All =  null)
-            {
-                if (All == null)
-            {
-                All = new List<TreeNode<T>>();
-            }
             if (_item.Equals(search))
             {
-                All.Add(this);
+                found.Add(this);
             }
+
             foreach (TreeNode<T> child in _children)
             {
-                child.FindAll(search, All);
+                child.FindAll(search);
             }
-            return All;
+            return found;
             }
         }
     }
