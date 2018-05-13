@@ -24,6 +24,7 @@ namespace A4
             child1.RemoveChild(grand12);
 
             root.PrintTree("");     
+            root.FindAll("child1");  
         }
 
         class TreeNode<T>
@@ -97,6 +98,7 @@ namespace A4
             {
                 child.FindAll(search);
             }
+            Console.WriteLine(found);
             return found;
             }
         }
