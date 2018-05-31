@@ -1,0 +1,11 @@
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\bin\Debug\netcoreapp2.0\Aufgabe6.1.deps.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\bin\Debug\netcoreapp2.0\Aufgabe6.1.runtimeconfig.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\bin\Debug\netcoreapp2.0\Aufgabe6.1.runtimeconfig.dev.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\bin\Debug\netcoreapp2.0\Aufgabe6.1.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\bin\Debug\netcoreapp2.0\Aufgabe6.1.pdb
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.csprojResolveAssemblyReference.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.csproj.CoreCompileInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.AssemblyInfoInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.AssemblyInfo.cs
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Aufgabe6.1\obj\Debug\netcoreapp2.0\Aufgabe6.1.pdb
