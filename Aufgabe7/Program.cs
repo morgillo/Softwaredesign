@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Aufgabe7
 {
@@ -6,7 +7,9 @@ namespace Aufgabe7
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Field.PrintGameData();
+            Moves.GiveInput();
         }
+   
     }
 }
