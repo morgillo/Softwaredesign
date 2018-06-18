@@ -32,7 +32,6 @@ namespace Aufgabe7
                 }
                 else
                 {
-                    Console.Clear();
                     Console.WriteLine("Draw! Game over.");
                     Environment.Exit(0);
                 }
