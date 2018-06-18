@@ -33,6 +33,8 @@ namespace Aufgabe7
                 else
                 {
                     Console.WriteLine("Draw! Game over.");
+                    Console.WriteLine("----------------");
+                    Field.PrintGameData();
                     Environment.Exit(0);
                 }
             }

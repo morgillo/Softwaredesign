@@ -54,6 +54,8 @@ namespace Aufgabe7
             if (_win == true)
             {
                 Console.WriteLine("Player "+ Moves.Turn(Moves.count)+ " has won!");
+                Console.WriteLine("----------------");
+                Field.PrintGameData();
                 Environment.Exit(0);
             }
         }
