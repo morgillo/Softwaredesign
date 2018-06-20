@@ -5,7 +5,7 @@ namespace Aufgabe7
 {
     class Checking
     {
-        public static int input;
+        public static int input; <- wo kommt input her? Besser als Parameter übergeben!
         public static int inputChecked;
         public static void CheckInput()
         {
@@ -40,7 +40,7 @@ namespace Aufgabe7
                 new int[] {2, 4, 6}
             };
 
-            if (Moves.count >= 4)
+            if (Moves.count >= 4) <- raus
             {
                 for (int i = 0; i <= winCases.Length - 1; i++)
                 {
@@ -53,7 +53,7 @@ namespace Aufgabe7
 
             if (_win == true)
             {
-                Console.WriteLine("Player "+ Moves.Turn(Moves.count)+ " has won!");
+                Console.WriteLine("Player "+ Moves.Turn(Moves.count)+ " has won!");  nicht hier Moves.Turn(Moves.count)
                 Console.WriteLine("----------------");
                 Field.PrintGameData();
                 Environment.Exit(0);
