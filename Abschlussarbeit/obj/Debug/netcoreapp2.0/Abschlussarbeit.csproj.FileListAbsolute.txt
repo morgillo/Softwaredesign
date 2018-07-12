@@ -1,0 +1,11 @@
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\bin\Debug\netcoreapp2.0\Abschlussarbeit.deps.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\bin\Debug\netcoreapp2.0\Abschlussarbeit.runtimeconfig.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\bin\Debug\netcoreapp2.0\Abschlussarbeit.runtimeconfig.dev.json
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\bin\Debug\netcoreapp2.0\Abschlussarbeit.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\bin\Debug\netcoreapp2.0\Abschlussarbeit.pdb
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.csprojResolveAssemblyReference.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.csproj.CoreCompileInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.AssemblyInfoInputs.cache
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.AssemblyInfo.cs
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.dll
+C:\Users\maria\Desktop\Medieninformatik\4.Semester\Softwaredesign\Softwaredesign\Abschlussarbeit\obj\Debug\netcoreapp2.0\Abschlussarbeit.pdb
