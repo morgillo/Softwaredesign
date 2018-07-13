@@ -50,8 +50,8 @@ namespace Abschlussarbeit
         }
 
         public static void CheckCases()// bool 
-        {   
-           // MethodStore.CheckEnemy();
+        {
+            // MethodStore.CheckEnemy();
             Console.WriteLine("What would you like to do?");
             string input = Console.ReadLine().ToLower();
             SplitInput(input);
@@ -210,6 +210,7 @@ namespace Abschlussarbeit
                             isFightCase = true;
                             Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
                             CheckCases();
+                            CheckCases();
                             break;
 
                         case "Kamien":
@@ -217,6 +218,7 @@ namespace Abschlussarbeit
                             isFightCase = true;
                             Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
                             CheckCases();
+                            //QuitGame();
                             break;
 
                         case "Fox":
@@ -233,11 +235,61 @@ namespace Abschlussarbeit
         }
         public static void Fight(GameData.Character enemy, string[] input)
         {
-            enemy = _enemy;
-            switch(input[0])
 
-            enemy._lifepoints = enemy._lifepoints - GameData.characters["Reckless"]._hitpoints;
-            Console.WriteLine("Test:"+ enemy + ": " + _enemy._lifepoints);
+            input = separatedInput;
+            enemy = _enemy;
+            switch (input[0])
+            {
+                case "f":
+                case "fight":
+                    //hitting the enemy
+                    enemy._lifepoints = (float)(Math.Round((enemy._lifepoints - GameData.characters["Reckless"]._hitpoints), 2));
+                    if (enemy._lifepoints > 0F)
+                    {
+                        Console.WriteLine("{0}: 'Outch!' ", enemy._name);
+                        Console.WriteLine("The Enemy is still alive. {0} Lifepoints: {1}", _enemy._name, _enemy._lifepoints);
+                        // beeing hitted
+                        GameData.characters["Reckless"]._lifepoints = (float)(Math.Round((GameData.characters["Reckless"]._lifepoints - _enemy._hitpoints), 2));
+
+                        if (GameData.characters["Reckless"]._lifepoints > 0F)
+                        {
+                            Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", GameData.characters["Reckless"]._lifepoints);
+                        }
+                        else
+                        {
+                            Console.WriteLine("You are dead!");
+                            //QuitGame();
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You defeated the {0}! Great!", enemy._name);
+                        isFightCase = false;
+                        enemy._lifepoints = 1F;
+                    }
+                    CheckCases();
+                    break;
+
+                default:
+                    Console.WriteLine("That's not possible. You were too slow.");
+                    GameData.characters["Reckless"]._lifepoints = (float)(Math.Round((GameData.characters["Reckless"]._lifepoints - _enemy._hitpoints), 2));
+                    if (GameData.characters["Reckless"]._lifepoints > 0F)
+                    {
+                        Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", GameData.characters["Reckless"]._lifepoints);
+                        Console.WriteLine("Try again. Valid inputs are: arm(a) <item>, use(u) <item>, inventory(i), fight(f), quit(q)");
+                        CheckCases();
+                    }
+                    else
+                    {
+                        Console.WriteLine("You are dead!");
+                        //QuitGame(); 
+                    }
+
+                    break;
+            }
+
+
         }
     }
 
