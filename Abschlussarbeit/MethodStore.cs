@@ -11,6 +11,8 @@ namespace Abschlussarbeit
         public static void GameIntro()
         {
             Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is ...");
+            GameData.CreateRoom();
+            GameData.createCharater();
         }
         public static void talkCases()
         {

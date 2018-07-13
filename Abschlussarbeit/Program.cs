@@ -23,10 +23,16 @@ namespace Abschlussarbeit
             /* MethodStore.SplitInput("hallo katha"); */
             /* RoomSetup.CreateRoom();
             Console.WriteLine(RoomSetup.rooms["Cave"]._information); */
-            GameData.CreateRoom();
-            GameData.createCharater();
+          
             MethodStore.GameIntro();
-            MethodStore.CheckCases();
+            for (;;)
+            {
+                MethodStore.CheckCases();
+            }
+
+         
+            
+
 
 
            // MethodStore.Move();
