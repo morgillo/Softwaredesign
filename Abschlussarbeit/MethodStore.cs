@@ -6,13 +6,19 @@ namespace Abschlussarbeit
     public class MethodStore
     {
         public static string[] separatedInput;
-        public static bool isFightCase;
+        public static bool isFightCase = false;
+        public static GameData.Character _enemy;
 
         public static void GameIntro()
         {
             Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is ...");
             GameData.CreateRoom();
             GameData.createCharater();
+        }
+        public static void Talk()
+        {
+            Console.WriteLine("{0}: 'Youre brother needs help. To defeat the Goyls King you better equipe. Did you already equipe?", GameData.characters["Fox"]._name);
+            MethodStore.talkCases();
         }
         public static void talkCases()
         {
@@ -21,7 +27,7 @@ namespace Abschlussarbeit
             {
                 case "y":
                 case "yes":
-                    Console.WriteLine("{0}: 'Perfect. Go ahead and good Luck!'"); //Enviroment.NewLine --> = /n
+                    Console.WriteLine("{0}: 'Perfect. Go ahead and good Luck!'");
                     break;
 
                 case "n":
@@ -30,7 +36,7 @@ namespace Abschlussarbeit
                     break;
 
                 default:
-                    Console.WriteLine("{0}:'Dude, I don't understand chinese. What did you say? ' ");
+                    Console.WriteLine("{0}:'I didn't understand. What did you say? ' ");
                     talkCases();
                     break;
 
@@ -43,8 +49,10 @@ namespace Abschlussarbeit
                 Console.WriteLine(command);
         }
 
-        public static void CheckCases()
-        {
+        public static void CheckCases()// bool 
+        {   
+           // MethodStore.CheckEnemy();
+            Console.WriteLine("What would you like to do?");
             string input = Console.ReadLine().ToLower();
             SplitInput(input);
             CheckFightCases(separatedInput);
@@ -53,7 +61,7 @@ namespace Abschlussarbeit
         public static Array SplitInput(string input) // input wird in der anderen Methode eingelesen und zum splitten übergeben
         {
             //string input = Console.ReadLine().ToLower();
-            
+
             char[] splitter = { ' ' };
             separatedInput = input.Split(splitter);
 
@@ -67,7 +75,6 @@ namespace Abschlussarbeit
         public static void CheckFightCases(string[] input)
         {
             separatedInput = input;
-            isFightCase = true;
 
             switch (separatedInput[0])
             {
@@ -93,14 +100,18 @@ namespace Abschlussarbeit
 
                 //if enemy im Raum 
                 /* default:
-                    isFightCase = false;
                     Console.WriteLine("This is not possible. Try again. Valid inputs are: arm(a) <item>, use(u) <item>, inventory(i), quit(q)");
                     break;
                      else*/
-                     default:
-                     isFightCase = false;
-                     CheckNonFightCases(separatedInput);
-                     break; 
+
+                default:
+                    if (isFightCase == true)
+                    {
+                        Fight(_enemy, separatedInput);
+                    }
+                    else
+                        CheckNonFightCases(separatedInput);
+                    break;
             }
         }
 
@@ -118,7 +129,7 @@ namespace Abschlussarbeit
 
                 case "l":
                 case "look":
-                Console.WriteLine("in loook");
+                    Console.WriteLine("in loook");
                     //Arm(string [separatedInput[1]] input);
                     break;
 
@@ -138,8 +149,8 @@ namespace Abschlussarbeit
                     {
 
                         GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.north;
-                        // EnemyChangeRoom()
                         GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
+
                     }
                     else
                         Console.WriteLine("There is no exit in this direction.");
@@ -184,10 +195,52 @@ namespace Abschlussarbeit
                     Console.WriteLine("This is not possible. Try again.");
                     break;
             }
-
-
         }
+        public static void CheckEnemy()
+        {
+            foreach (var charackter in GameData.characters.Values)
+            {
+                if (charackter._currentLocation == GameData.characters["Reckless"]._currentLocation)
+                {
+                    string name = charackter._name;
+                    switch (name)
+                    {
+                        case "Goyl":
+                            _enemy = charackter;
+                            isFightCase = true;
+                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
+                            CheckCases();
+                            break;
 
+                        case "Kamien":
+                            _enemy = charackter;
+                            isFightCase = true;
+                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
+                            CheckCases();
+                            break;
+
+                        case "Fox":
+                            Talk();
+                            CheckCases();
+                            break;
+
+                        default:
+                            CheckCases();
+                            break;
+                    }
+                }
+            }
+        }
+        public static void Fight(GameData.Character enemy, string[] input)
+        {
+            enemy = _enemy;
+            switch(input[0])
+
+            enemy._lifepoints = enemy._lifepoints - GameData.characters["Reckless"]._hitpoints;
+            Console.WriteLine("Test:"+ enemy + ": " + _enemy._lifepoints);
+        }
     }
 
+
 }
+

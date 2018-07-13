@@ -37,8 +37,8 @@ namespace Abschlussarbeit
             public static void RoomDescription(Room room)
             {
                 room = GameData.characters["Reckless"]._currentLocation;
-                Console.Write(room._name);
-                Console.Write(room._information);
+                //Console.Write(room._name);
+                Console.WriteLine(room._information);
             }
         }
 
@@ -142,11 +142,6 @@ namespace Abschlussarbeit
                 this._information = information;
                 this._currentLocation = currentLocation;
             }
-
-            public static void Fight()
-            {
-
-            }
         }
 
         public class Helper : Character
@@ -158,12 +153,6 @@ namespace Abschlussarbeit
                 this._hitpoints = hitpoints;
                 this._information = information;
                 this._currentLocation = currentLocation;
-            }
-
-            public static void Talk()
-            {
-                Console.WriteLine("{0}: 'Youre brother needs help. To defeat the Goyls King you better equipe. Did you already equipe? {1} {2}");
-                MethodStore.talkCases();
             }
         }
         public static Dictionary<string, Character> characters;
@@ -207,6 +196,15 @@ namespace Abschlussarbeit
 
 
         }
+
+        /* public static void checkCharacters()
+        {
+            foreach(var item in GameData.characters.Values)
+            {
+                characters["Goyl"]._hitpoints++;
+                Console.WriteLine(item._hitpoints);
+            }
+        } */
     }
 
 }

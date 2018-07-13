@@ -25,9 +25,11 @@ namespace Abschlussarbeit
             Console.WriteLine(RoomSetup.rooms["Cave"]._information); */
           
             MethodStore.GameIntro();
+            //MethodStore.Fight();
             for (;;)
             {
-                MethodStore.CheckCases();
+                MethodStore.CheckEnemy();
+                
             }
 
          
