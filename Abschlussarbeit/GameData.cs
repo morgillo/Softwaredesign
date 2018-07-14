@@ -18,6 +18,7 @@ namespace Abschlussarbeit
         //public static string userInput = Console.ReadLine().ToLower();
 
         public static Dictionary<string, Room> rooms;
+        public static Dictionary<string, Item> items = new Dictionary<string, Item>();
 
         public class Room
         {
@@ -106,7 +107,7 @@ namespace Abschlussarbeit
             rooms["Forest"] = Forest;
             rooms["Bazaar"] = Bazaar;
             rooms["Goyls Cave"] = GoylsCave;
-            rooms["Valley"]= Valley;
+            rooms["Valley"] = Valley;
 
         }
 
@@ -197,14 +198,71 @@ namespace Abschlussarbeit
 
         }
 
-        /* public static void checkCharacters()
+        public class Item
         {
-            foreach(var item in GameData.characters.Values)
+            public string _name;
+            public string _type;
+            public string _information;
+        }
+
+
+        public class Health : Item
+        {
+            public float _lifepoints;
+            string _placeholder;
+            public Health(string name, string type, string information, float lifepoints, string placeholder)
             {
-                characters["Goyl"]._hitpoints++;
-                Console.WriteLine(item._hitpoints);
+                this._name = name;
+                this._type = type;
+                this._information = information;
+                this._lifepoints = lifepoints;
+                this._placeholder = placeholder;
             }
-        } */
+
+
+            public static void use()
+            {
+                //adds lifepoints
+            }
+        }
+        public class Gear : Item
+        {
+            public float _hitpoints;
+            public bool _isArmed;
+            public Gear(string name, string type, string information, float hitpoints, bool isArmed)
+            {
+                this._name = name;
+                this._type = type;
+                this._information = information;
+                this._hitpoints = hitpoints;
+                this._isArmed = isArmed;
+            }
+        }
+
+        public static void createItems()
+        {
+            Gear Arrow = new Gear
+            (
+                "Arrow", "Gear", "info", 0.1F, false
+            );
+
+            Gear Bow = new Gear
+            (
+                "Bow", "Gear", "info", 0.3F, false
+            );
+
+            Health Berries = new Health
+            (
+                "Berries", "Health", "info", 0.3F, "Heal!"
+            );
+
+            items["Bow"] = Bow;
+            items["Berries"] = Berries;
+            items["Arrow"] = Arrow;
+
+        }
+
+
     }
 
 }
