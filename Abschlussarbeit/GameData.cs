@@ -18,7 +18,8 @@ namespace Abschlussarbeit
         //public static string userInput = Console.ReadLine().ToLower();
 
         public static Dictionary<string, Room> rooms;
-        public static Dictionary<string, Item> items = new Dictionary<string, Item>();
+        public static Dictionary<string, Character> characters;
+        //public static Dictionary<string, Item> items;
 
         public class Room
         {
@@ -28,18 +29,12 @@ namespace Abschlussarbeit
             public Room east;
             public Room south;
             public Room west;
+            public List<Item> _roomInv = new List<Item>();
 
             public Room(string name, string information)
             {
                 this._name = name;
                 this._information = information;
-            }
-
-            public static void RoomDescription(Room room)
-            {
-                room = GameData.characters["Reckless"]._currentLocation;
-                //Console.Write(room._name);
-                Console.WriteLine(room._information);
             }
         }
 
@@ -49,40 +44,47 @@ namespace Abschlussarbeit
             (
                 "Bedroom",
                 "You just entered your father's old studyroom. It's old and dusty."
-
-
             );
 
             Room Forest = new Room
             (
                 "Forest",
                 "You just entered the Forest. The weather was very muggy and sticky."
-
             );
+            Health Berry = new Health
+            (
+                "Berry", "Health", "info", 0.3F, "Heal!"
+            );
+            Forest._roomInv.Add(Berry);
 
             Room Bazaar = new Room
             (
                "Bazaar",
-                "You arrived... "
+                "You arrived at the Bazar"
             );
 
             Room Valley = new Room
             (
                 "Valley",
-                "..."
+                "You are at the Valley"
             );
+            Gear Arrow = new Gear
+            (
+                "Arrow", "Gear", "info", 0.3F, false
+            );
+            Valley._roomInv.Add(Arrow);
 
             Room GoylsCave = new Room
             (
                 "Goyls Cave",
-                "..."
+                "You entered the Goyls Cave"
             );
 
 
             Room Dungeon = new Room
             (
                 "Dungeon",
-                "..."
+                "You are in Dugeon"
 
             );
 
@@ -108,7 +110,6 @@ namespace Abschlussarbeit
             rooms["Bazaar"] = Bazaar;
             rooms["Goyls Cave"] = GoylsCave;
             rooms["Valley"] = Valley;
-
         }
 
         //Character
@@ -119,6 +120,7 @@ namespace Abschlussarbeit
             public float _hitpoints;
             public string _information;
             public Room _currentLocation;
+            public List<Item> _characterInventory = new List <Item>();
         }
 
         public class Enemy : Character
@@ -155,47 +157,6 @@ namespace Abschlussarbeit
                 this._information = information;
                 this._currentLocation = currentLocation;
             }
-        }
-        public static Dictionary<string, Character> characters;
-        public static void createCharater()
-        {
-
-            //Avatar
-            Avatar Reckless = new Avatar
-            (
-            "Reckless", 1F, 0.2F, "I am J. Reckless", rooms["Bedroom"]
-            //Console.WriteLine("Character stats {0} - LP%: {1}, HP%: {2}, Info: {3}", Avatar.name, Avatar.lifepoints, Avatar.hitpoints, Avatar.information),
-            );
-
-            //Enemy1
-            Enemy Goyl = new Enemy
-            (
-            "Goyl", 1F, 0.1F, "Goyl is your enemy", rooms["Forest"]
-            //Console.WriteLine("Character stats {0} - LP%: {1}, HP%: {2}, Info: {3}", Avatar.name, Avatar.lifepoints, Avatar.hitpoints, Avatar.information),
-            );
-
-            //Enemy2
-            Enemy Kamien = new Enemy
-            (
-            "Kamien", 1F, 0.3F, "Kamien is your biggest enemy", rooms["Goyls Cave"]
-            //Console.WriteLine("Character stats {0} - LP%: {1}, HP%: {2}, Info: {3}", Avatar.name, Avatar.lifepoints, Avatar.hitpoints, Avatar.information),
-            );
-
-            //Helper
-            Helper Fox = new Helper
-            (
-            "Fox", 1F, 0F, "Fox is your friend.", rooms["Forest"]
-            //Console.WriteLine("Character stats {0} - LP%: {1}, HP%: {2}, Info: {3}", Avatar.name, Avatar.lifepoints, Avatar.hitpoints, Avatar.information),
-            );
-
-            //statt Liste
-            characters = new Dictionary<string, Character>();
-            characters["Reckless"] = Reckless;
-            characters["Goyl"] = Goyl;
-            characters["Kamien"] = Kamien;
-            characters["Fox"] = Fox;
-
-
         }
 
         public class Item
@@ -239,29 +200,45 @@ namespace Abschlussarbeit
             }
         }
 
-        public static void createItems()
+        public static void CreateCharater()
         {
-            Gear Arrow = new Gear
+
+            //Avatar
+            Avatar Reckless = new Avatar
             (
-                "Arrow", "Gear", "info", 0.1F, false
+            "Reckless", 1F, 0.2F, "I am J. Reckless", rooms["Bedroom"]
             );
 
-            Gear Bow = new Gear
+            //Enemy1
+            Enemy Goyl = new Enemy
             (
-                "Bow", "Gear", "info", 0.3F, false
+            "Goyl", 1F, 0.1F, "Goyl is your enemy", rooms["Forest"]
+            );
+             Gear Bow = new Gear
+            (
+                "Bow", "Gear", "info", 0.1F, false
+            );
+            Goyl._characterInventory.Add(Bow);
+
+            //Enemy2
+            Enemy Kamien = new Enemy
+            (
+            "Kamien", 1F, 0.3F, "Kamien is your biggest enemy", rooms["Goyls Cave"]
             );
 
-            Health Berries = new Health
+            //Helper
+            Helper Fox = new Helper
             (
-                "Berries", "Health", "info", 0.3F, "Heal!"
+            "Fox", 1F, 0F, "Fox is your friend.", rooms["Forest"]
             );
 
-            items["Bow"] = Bow;
-            items["Berries"] = Berries;
-            items["Arrow"] = Arrow;
+            characters = new Dictionary<string, Character>();
+            characters["Reckless"] = Reckless;
+            characters["Goyl"] = Goyl;
+            characters["Kamien"] = Kamien;
+            characters["Fox"] = Fox;
 
         }
-
 
     }
 

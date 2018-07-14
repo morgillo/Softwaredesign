@@ -5,16 +5,71 @@ namespace Abschlussarbeit
 {
     public class MethodStore
     {
+        public static GameData.Room MyCurrentRoom = GameData.characters["Reckless"]._currentLocation;
         public static string[] separatedInput;
         public static bool isFightCase = false;
         public static GameData.Character _enemy;
-        public static int charackterNumber;
+        public static int characterNumber;
 
         public static void GameIntro()
         {
             Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is your brother beeing kidnapped by the Goyls. Save him!");
             GameData.CreateRoom();
-            GameData.createCharater();
+            GameData.CreateCharater();
+            Look(MyCurrentRoom);
+        }
+
+        public static void Look(GameData.Room room)
+        {
+            room = MyCurrentRoom;
+
+            Console.WriteLine(room._information + Environment.NewLine);
+
+            if (room._roomInv.Count != 0)
+            {
+                Console.WriteLine("You see..");
+                foreach (var item in room._roomInv)
+                {
+                    Console.WriteLine("a/an " + item._name);
+                }
+            }
+            else
+                Console.WriteLine("There is no item in this place.");
+        }
+
+        public static void Take(string input)
+        {
+            var room = MyCurrentRoom;
+            input = separatedInput[1];
+            foreach (var item in MyCurrentRoom._roomInv)
+            {
+                if (item._name == input)
+                {
+                    GameData.characters["Reckless"]._characterInventory.Add(item);
+                    Console.WriteLine("bin drin");
+                }
+            }
+        }
+
+        public static void DisplayInventory()
+        {
+            Console.WriteLine("Take a look at your inventory:");
+            if (GameData.characters["Reckless"]._characterInventory.Count > 0)
+            {
+                Console.WriteLine("-----------------------------------------------------------------------------------------------");
+                Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  |  {3,-10}  |  {4,-10}  ", "Name", "Type", "Information", "Armed?", "Hit/Heal"));
+                Console.WriteLine("-----------------------------------------------------------------------------------------------");
+                foreach (var item in GameData.characters["Reckless"]._characterInventory)
+                {
+                    Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  |  {3,-10}  |  {4,-10}  ", item._name, item._type, item._information, 1, 1));
+                }
+                Console.WriteLine("-----------------------------------------------------------------------------------------------");
+            }
+            else
+            {
+                Console.WriteLine("Woops! Your inventory is empty...");
+            }
+
         }
         public static void Talk()
         {
@@ -91,7 +146,7 @@ namespace Abschlussarbeit
 
                 case "i":
                 case "inventory":
-                    //DisplayInventory();
+                    DisplayInventory();
                     break;
 
                 case "q":
@@ -130,12 +185,12 @@ namespace Abschlussarbeit
 
                 case "l":
                 case "look":
-                    GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
+                    Look(MyCurrentRoom);
                     break;
 
                 case "t":
                 case "take":
-                    //DisplayInventory();
+                    Take(separatedInput[1]);
                     break;
 
                 case "d":
@@ -145,11 +200,11 @@ namespace Abschlussarbeit
 
                 case "n":
                 case "north":
-                    if (GameData.characters["Reckless"]._currentLocation.north != null)
+                    if (MyCurrentRoom.north != null)
                     {
-                        GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.north;
-                        //EnemyChangeRoom();
-                        GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
+                        MyCurrentRoom = MyCurrentRoom.north;
+                        EnemyChangeRoom();
+                        Look(MyCurrentRoom);
                     }
                     else
                         Console.WriteLine("There is no exit in this direction.");
@@ -157,11 +212,11 @@ namespace Abschlussarbeit
 
                 case "e":
                 case "east":
-                    if (GameData.characters["Reckless"]._currentLocation.east != null)
+                    if (MyCurrentRoom.east != null)
                     {
-                        GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.east;
-                        //EnemyChangeRoom();
-                        GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
+                        MyCurrentRoom = MyCurrentRoom.east;
+                        EnemyChangeRoom();
+                        Look(MyCurrentRoom);
                     }
                     else
                         Console.WriteLine("There is no exit in this direction.");
@@ -169,11 +224,11 @@ namespace Abschlussarbeit
 
                 case "s":
                 case "south":
-                    if (GameData.characters["Reckless"]._currentLocation.south != null)
+                    if (MyCurrentRoom.south != null)
                     {
-                        GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.south;
-                        //EnemyChangeRoom();
-                        GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
+                        MyCurrentRoom = MyCurrentRoom.south;
+                        EnemyChangeRoom();
+                        Look(MyCurrentRoom);
                     }
 
                     else
@@ -182,11 +237,11 @@ namespace Abschlussarbeit
 
                 case "w":
                 case "west":
-                    if (GameData.characters["Reckless"]._currentLocation.west != null)
+                    if (MyCurrentRoom.west != null)
                     {
-                        GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.west;
-                        //EnemyChangeRoom();
-                        GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation.west);
+                        MyCurrentRoom = MyCurrentRoom.west;
+                        EnemyChangeRoom();
+                        Look(MyCurrentRoom.west);
                     }
 
                     else
@@ -210,10 +265,10 @@ namespace Abschlussarbeit
 
         public static bool isInList(string s)
         {
-            if(s == GameData.characters["Goyl"]._currentLocation._name)
-            return true;
+            if (s == GameData.characters["Goyl"]._currentLocation._name)
+                return true;
             else
-            return false;
+                return false;
         }
         public static void CountCharacterNumber()
         {
@@ -225,9 +280,9 @@ namespace Abschlussarbeit
             }
 
             List<string> sublist = currentRooms.FindAll(isInList);
-            charackterNumber = sublist.Count;
+            characterNumber = sublist.Count;
 
-            if (charackterNumber >= 2)
+            if (characterNumber >= 2)
             {
                 EnemyChangeRoom();
             }
@@ -237,15 +292,15 @@ namespace Abschlussarbeit
 
         public static void CheckEnemy()
         {
-            foreach (var charackter in GameData.characters.Values)
+            foreach (var character in GameData.characters.Values)
             {
-                if (charackter._currentLocation == GameData.characters["Reckless"]._currentLocation)
+                if (character._currentLocation == MyCurrentRoom)
                 {
-                    string name = charackter._name;
+                    string name = character._name;
                     switch (name)
                     {
                         case "Goyl":
-                            _enemy = charackter;
+                            _enemy = character;
                             isFightCase = true;
                             Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
                             CheckCases();
@@ -254,7 +309,7 @@ namespace Abschlussarbeit
 
                         case "Kamien":
 
-                            _enemy = charackter;
+                            _enemy = character;
                             isFightCase = true;
                             Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
                             CheckCases();
