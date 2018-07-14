@@ -8,10 +8,11 @@ namespace Abschlussarbeit
         public static string[] separatedInput;
         public static bool isFightCase = false;
         public static GameData.Character _enemy;
+        public static int charackterNumber;
 
         public static void GameIntro()
         {
-            Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is ...");
+            Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is your brother beeing kidnapped by the Goyls. Save him!");
             GameData.CreateRoom();
             GameData.createCharater();
         }
@@ -124,13 +125,12 @@ namespace Abschlussarbeit
             {
                 case "h":
                 case "help":
-                    //Use(string [separatedInput[1]] input);
+                    Help();
                     break;
 
                 case "l":
                 case "look":
-                    Console.WriteLine("in loook");
-                    //Arm(string [separatedInput[1]] input);
+                    GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
                     break;
 
                 case "t":
@@ -147,10 +147,9 @@ namespace Abschlussarbeit
                 case "north":
                     if (GameData.characters["Reckless"]._currentLocation.north != null)
                     {
-
                         GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.north;
+                        //EnemyChangeRoom();
                         GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
-
                     }
                     else
                         Console.WriteLine("There is no exit in this direction.");
@@ -161,6 +160,7 @@ namespace Abschlussarbeit
                     if (GameData.characters["Reckless"]._currentLocation.east != null)
                     {
                         GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.east;
+                        //EnemyChangeRoom();
                         GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
                     }
                     else
@@ -172,6 +172,7 @@ namespace Abschlussarbeit
                     if (GameData.characters["Reckless"]._currentLocation.south != null)
                     {
                         GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.south;
+                        //EnemyChangeRoom();
                         GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation);
                     }
 
@@ -184,6 +185,7 @@ namespace Abschlussarbeit
                     if (GameData.characters["Reckless"]._currentLocation.west != null)
                     {
                         GameData.characters["Reckless"]._currentLocation = GameData.characters["Reckless"]._currentLocation.west;
+                        //EnemyChangeRoom();
                         GameData.Room.RoomDescription(GameData.characters["Reckless"]._currentLocation.west);
                     }
 
@@ -196,6 +198,43 @@ namespace Abschlussarbeit
                     break;
             }
         }
+
+        public static void EnemyChangeRoom()
+        {
+            List<GameData.Room> allRooms = new List<GameData.Room>(GameData.rooms.Values);
+            Random rand = new Random();
+            int randomIndex = rand.Next(allRooms.Count);
+            GameData.characters["Goyl"]._currentLocation = allRooms[randomIndex];
+            CountCharacterNumber();
+        }
+
+        public static bool isInList(string s)
+        {
+            if(s == GameData.characters["Goyl"]._currentLocation._name)
+            return true;
+            else
+            return false;
+        }
+        public static void CountCharacterNumber()
+        {
+            List<string> currentRooms = new List<string>();
+
+            foreach (var character in GameData.characters)
+            {
+                currentRooms.Add(character.Value._currentLocation._name);
+            }
+
+            List<string> sublist = currentRooms.FindAll(isInList);
+            charackterNumber = sublist.Count;
+
+            if (charackterNumber >= 2)
+            {
+                EnemyChangeRoom();
+            }
+
+        }
+
+
         public static void CheckEnemy()
         {
             foreach (var charackter in GameData.characters.Values)
@@ -208,15 +247,16 @@ namespace Abschlussarbeit
                         case "Goyl":
                             _enemy = charackter;
                             isFightCase = true;
-                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
+                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
                             CheckCases();
                             CheckCases();
                             break;
 
                         case "Kamien":
+
                             _enemy = charackter;
                             isFightCase = true;
-                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Fight him!");
+                            Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
                             CheckCases();
                             //QuitGame();
                             break;
@@ -289,10 +329,8 @@ namespace Abschlussarbeit
                     break;
             }
 
-
         }
+
     }
-
-
 }
 

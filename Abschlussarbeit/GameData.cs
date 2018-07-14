@@ -47,7 +47,7 @@ namespace Abschlussarbeit
             Room Bedroom = new Room
             (
                 "Bedroom",
-                "You just entered your father's old studyroom. It's ..."
+                "You just entered your father's old studyroom. It's old and dusty."
 
 
             );
@@ -55,7 +55,7 @@ namespace Abschlussarbeit
             Room Forest = new Room
             (
                 "Forest",
-                "You just entered the Forest. It's "
+                "You just entered the Forest. The weather was very muggy and sticky."
 
             );
 
@@ -169,7 +169,7 @@ namespace Abschlussarbeit
             //Enemy1
             Enemy Goyl = new Enemy
             (
-            "Goyl", 1F, 0.1F, "Goyl is your enemy", rooms["Valley"]
+            "Goyl", 1F, 0.1F, "Goyl is your enemy", rooms["Forest"]
             //Console.WriteLine("Character stats {0} - LP%: {1}, HP%: {2}, Info: {3}", Avatar.name, Avatar.lifepoints, Avatar.hitpoints, Avatar.information),
             );
 
