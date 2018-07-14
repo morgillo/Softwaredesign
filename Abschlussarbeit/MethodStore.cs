@@ -10,6 +10,8 @@ namespace Abschlussarbeit
         public static bool isFightCase = false;
         public static GameData.Character _enemy;
         public static int characterNumber;
+        public static int talkCounter = 0;
+        
 
         public static void GameIntro()
         {
@@ -39,15 +41,35 @@ namespace Abschlussarbeit
 
         public static void Take(string input)
         {
-            var room = MyCurrentRoom;
             input = separatedInput[1];
-            foreach (var item in MyCurrentRoom._roomInv)
+
+            GameData.Item foundItem = MyCurrentRoom._roomInv.Find(x => x._name.ToLower().Contains(input));
+            if (foundItem != null)
             {
-                if (item._name == input)
-                {
-                    GameData.characters["Reckless"]._characterInventory.Add(item);
-                    Console.WriteLine("bin drin");
-                }
+                Console.WriteLine("You added {0} in your inventory.", foundItem._name);
+                GameData.characters["Reckless"]._characterInventory.Add(foundItem);
+                MyCurrentRoom._roomInv.Remove(foundItem);
+            }
+            else
+            {
+                Console.WriteLine("Can't take!");
+            }
+        }
+
+        public static void Drop(string input)
+        {
+            input = separatedInput[1];
+
+            GameData.Item foundItem = GameData.characters["Reckless"]._characterInventory.Find(x => x._name.ToLower().Contains(input));
+            if (foundItem != null)
+            {
+                Console.WriteLine("You removed {0} from your inventory.", foundItem._name);
+                MyCurrentRoom._roomInv.Add(foundItem);
+                GameData.characters["Reckless"]._characterInventory.Remove(foundItem);
+            }
+            else
+            {
+                Console.WriteLine("Can't drop!");
             }
         }
 
@@ -151,14 +173,8 @@ namespace Abschlussarbeit
 
                 case "q":
                 case "quit":
-                    //QuitGame();
+                    QuitGame();
                     break;
-
-                //if enemy im Raum 
-                /* default:
-                    Console.WriteLine("This is not possible. Try again. Valid inputs are: arm(a) <item>, use(u) <item>, inventory(i), quit(q)");
-                    break;
-                     else*/
 
                 default:
                     if (isFightCase == true)
@@ -195,7 +211,7 @@ namespace Abschlussarbeit
 
                 case "d":
                 case "drop":
-                    //Drop();
+                    Drop(separatedInput[1]);
                     break;
 
                 case "n":
@@ -256,6 +272,7 @@ namespace Abschlussarbeit
 
         public static void EnemyChangeRoom()
         {
+            talkCounter = 0;
             List<GameData.Room> allRooms = new List<GameData.Room>(GameData.rooms.Values);
             Random rand = new Random();
             int randomIndex = rand.Next(allRooms.Count);
@@ -317,7 +334,12 @@ namespace Abschlussarbeit
                             break;
 
                         case "Fox":
-                            Talk();
+                                if (talkCounter == 0)
+                                {
+                                    Talk();
+                                    talkCounter++;
+                                }
+                            
                             CheckCases();
                             break;
 
@@ -384,6 +406,12 @@ namespace Abschlussarbeit
                     break;
             }
 
+        }
+
+        public static void QuitGame()
+        {
+            Console.WriteLine("You exited the game. Game over!");
+            Environment.Exit(0);
         }
 
     }

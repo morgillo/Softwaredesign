@@ -8,13 +8,13 @@ namespace Abschlussarbeit
         static void Main(string[] args)
         {
             MethodStore.GameIntro();
-            /* 
+            
             for (;;)
             {
                 MethodStore.CheckEnemy();   
-            } */
+            } 
             
-            MethodStore.DisplayInventory();
+            //MethodStore.DisplayInventory();
             //Console.WriteLine(GameData.characters["Goyl"]._characterInventory);
         }
     }
