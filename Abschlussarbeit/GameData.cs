@@ -60,7 +60,7 @@ namespace Abschlussarbeit
             Room Bazaar = new Room
             (
                "Bazaar",
-                "You arrived at the Bazar"
+                "You arrived at the Bazaar"
             );
 
             Room Valley = new Room
@@ -97,6 +97,8 @@ namespace Abschlussarbeit
             Bazaar.east = Valley;
             Bazaar.south = Forest;
             Bazaar.west = GoylsCave;
+
+            Valley.west = Bazaar;
 
             GoylsCave.north = Dungeon;
             GoylsCave.east = Bazaar;

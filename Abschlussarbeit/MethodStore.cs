@@ -10,8 +10,8 @@ namespace Abschlussarbeit
         public static bool isFightCase = false;
         public static GameData.Character _enemy;
         public static int characterNumber;
-        public static int talkCounter = 0;
-        
+        public static int InteractionCounter = 0;
+
 
         public static void GameIntro()
         {
@@ -26,17 +26,23 @@ namespace Abschlussarbeit
             room = MyCurrentRoom;
 
             Console.WriteLine(room._information + Environment.NewLine);
-
-            if (room._roomInv.Count != 0)
+            try
             {
-                Console.WriteLine("You see..");
-                foreach (var item in room._roomInv)
+                if (room._roomInv.Count != 0)
                 {
-                    Console.WriteLine("a/an " + item._name);
+                    Console.WriteLine("You see..");
+                    foreach (var item in room._roomInv)
+                    {
+                        Console.WriteLine("a/an " + item._name);
+                    }
                 }
+                else
+                    Console.WriteLine("There is no item in this place.");
             }
-            else
-                Console.WriteLine("There is no item in this place.");
+            catch
+            {
+                Console.WriteLine("Exception Handle");
+            }
         }
 
         public static void Take(string input)
@@ -272,12 +278,22 @@ namespace Abschlussarbeit
 
         public static void EnemyChangeRoom()
         {
-            talkCounter = 0;
+            InteractionCounter = 0;
+
             List<GameData.Room> allRooms = new List<GameData.Room>(GameData.rooms.Values);
-            Random rand = new Random();
-            int randomIndex = rand.Next(allRooms.Count);
-            GameData.characters["Goyl"]._currentLocation = allRooms[randomIndex];
-            CountCharacterNumber();
+            try
+            {
+                Random rand = new Random();
+                int randomIndex = rand.Next(allRooms.Count);
+                GameData.characters["Goyl"]._currentLocation = allRooms[randomIndex];
+                CountCharacterNumber();
+            }
+            catch
+            {
+                Console.WriteLine("Exeption handle.");
+            }
+
+
         }
 
         public static bool isInList(string s)
@@ -317,10 +333,14 @@ namespace Abschlussarbeit
                     switch (name)
                     {
                         case "Goyl":
-                            _enemy = character;
-                            isFightCase = true;
-                            Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
-                            CheckCases();
+                            if (InteractionCounter == 0)
+                            {
+                                _enemy = character;
+                                isFightCase = true;
+                                Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
+                                CheckCases();
+                                InteractionCounter++;
+                            }
                             CheckCases();
                             break;
 
@@ -330,16 +350,16 @@ namespace Abschlussarbeit
                             isFightCase = true;
                             Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
                             CheckCases();
-                            //QuitGame();
+                            QuitGame();
                             break;
 
                         case "Fox":
-                                if (talkCounter == 0)
-                                {
-                                    Talk();
-                                    talkCounter++;
-                                }
-                            
+                            if (InteractionCounter == 0)
+                            {
+                                Talk();
+                                InteractionCounter++;
+                            }
+
                             CheckCases();
                             break;
 
@@ -375,13 +395,19 @@ namespace Abschlussarbeit
                         else
                         {
                             Console.WriteLine("You are dead!");
-                            //QuitGame();
+                            QuitGame();
                         }
 
                     }
                     else
                     {
                         Console.WriteLine("You defeated the {0}! Great!", enemy._name);
+                        if (enemy._characterInventory.Count != 0)
+                        {
+                            GameData.characters["Reckless"]._characterInventory.Add(enemy._characterInventory[0]);
+                            enemy._characterInventory.Remove(enemy._characterInventory[0]);
+                            Console.WriteLine("Awesome! You snatched the {0}",enemy._characterInventory[0]);
+                        }
                         isFightCase = false;
                         enemy._lifepoints = 1F;
                     }
@@ -400,7 +426,7 @@ namespace Abschlussarbeit
                     else
                     {
                         Console.WriteLine("You are dead!");
-                        //QuitGame(); 
+                        QuitGame();
                     }
 
                     break;
@@ -410,7 +436,7 @@ namespace Abschlussarbeit
 
         public static void QuitGame()
         {
-            Console.WriteLine("You exited the game. Game over!");
+            Console.WriteLine("Game over!");
             Environment.Exit(0);
         }
 
