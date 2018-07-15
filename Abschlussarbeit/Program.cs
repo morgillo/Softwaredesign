@@ -8,11 +8,11 @@ namespace Abschlussarbeit
         static void Main(string[] args)
         {
             MethodStore.GameIntro();
-            
-            for (;;)
+
+            for (; ; )
             {
-                MethodStore.CheckEnemy();   
-            } 
+                MethodStore.CheckEnemy();
+            }
         }
     }
 }

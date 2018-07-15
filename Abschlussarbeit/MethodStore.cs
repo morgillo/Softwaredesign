@@ -7,15 +7,15 @@ namespace Abschlussarbeit
     {
         public static GameData.Character MyCharacter = GameData.Characters["Reckless"];
         public static GameData.Room MyCurrentRoom = MyCharacter.CurrentLocation;
+        public static GameData.Character Enemy;
         public static string[] SeparatedInput;
         public static bool IsFightCase = false;
-        public static GameData.Character Enemy;
         public static int CharacterNumber;
         public static int InteractionCounter = 0;
 
         public static void GameIntro()
         {
-            Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is your brother beeing kidnapped by the Goyls. Save him!");
+            Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The scream of your brother is the last thing you can remeber. He has been kidnapped by the Goyls.");
             GameData.CreateRoom();
             GameData.CreateCharater();
             Look(MyCurrentRoom);
@@ -24,24 +24,18 @@ namespace Abschlussarbeit
         {
             room = MyCurrentRoom;
 
-            Console.WriteLine(room.Information + Environment.NewLine);
-            try
+            Console.WriteLine(room.Information);
+
+            if (room.RoomInv.Count != 0)
             {
-                if (room.RoomInv.Count != 0)
+                Console.WriteLine("You see..");
+                foreach (var item in room.RoomInv)
                 {
-                    Console.WriteLine("You see..");
-                    foreach (var item in room.RoomInv)
-                    {
-                        Console.WriteLine("a/an " + item.Name);
-                    }
+                    Console.WriteLine("a/an " + item.Name);
                 }
-                else
-                    Console.WriteLine("There is no item in this place.");
             }
-            catch
-            {
-                Console.WriteLine("Exception Handle");
-            }
+            else
+                Console.WriteLine("There is no item in this place.");
         }
         public static void Take(string input)
         {
@@ -124,7 +118,6 @@ namespace Abschlussarbeit
                     Console.WriteLine("{0}:'I didn't understand. What did you say? ' ");
                     TalkCases();
                     break;
-
             }
         }
 
@@ -283,17 +276,11 @@ namespace Abschlussarbeit
             InteractionCounter = 0;
 
             List<GameData.Room> allRooms = new List<GameData.Room>(GameData.Rooms.Values);
-            try
-            {
-                Random rand = new Random();
-                int randomIndex = rand.Next(allRooms.Count);
-                GameData.Characters["Goyl"].CurrentLocation = allRooms[randomIndex];
-                CountCharacterNumber();
-            }
-            catch
-            {
-                Console.WriteLine("Exeption handle.");
-            }
+
+            Random rand = new Random();
+            int randomIndex = rand.Next(allRooms.Count);
+            GameData.Characters["Goyl"].CurrentLocation = allRooms[randomIndex];
+            CountCharacterNumber();
         }
 
         public static bool isInList(string s)
@@ -323,50 +310,47 @@ namespace Abschlussarbeit
         }
         public static void CheckEnemy()
         {
+
             foreach (var character in GameData.Characters.Values)
             {
                 if (character.CurrentLocation == MyCurrentRoom)
                 {
                     string name = character.Name;
-                    switch (name)
-                    {
-                        case "Goyl":
-                            if (InteractionCounter == 0)
-                            {
+                        switch (name)
+                        {
+                            case "Goyl":
+                                if (InteractionCounter == 0)
+                                {
+                                    Enemy = character;
+                                    IsFightCase = true;
+                                    Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
+                                    CheckCases();
+                                    InteractionCounter++;
+                                }
+                                CheckCases();
+                                break;
+
+                            case "Kamien":
                                 Enemy = character;
                                 IsFightCase = true;
-                                Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
+                                Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
                                 CheckCases();
-                                InteractionCounter++;
-                            }
-                            CheckCases();
-                            break;
+                                QuitGame();
+                                break;
 
-                        case "Kamien":
-
-                            Enemy = character;
-                            IsFightCase = true;
-                            Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
-                            CheckCases();
-                            QuitGame();
-                            break;
-
-                        case "Fox":
-                            if (InteractionCounter == 0)
-                            {
-                                Talk();
-                                InteractionCounter++;
-                            }
-
-                            CheckCases();
-                            break;
-
-                        default:
-                            CheckCases();
-                            break;
-                    }
+                            case "Fox":
+                                if (InteractionCounter == 0)
+                                {
+                                    Talk();
+                                    InteractionCounter++;
+                                }
+                                CheckCases();
+                                break;
+                        }      
                 }
+                CheckCases();
             }
+            //CheckCases();
         }
         public static void Fight(GameData.Character enemy, string[] input)
         {
@@ -403,7 +387,7 @@ namespace Abschlussarbeit
                         {
                             MyCharacter.CharacterInventory.Add(enemy.CharacterInventory[0]);
                             enemy.CharacterInventory.Remove(enemy.CharacterInventory[0]);
-                            Console.WriteLine("Awesome! You snatched the {0}", enemy.CharacterInventory[0]);
+                            Console.WriteLine("Awesome! You snatched his inventory");
                         }
                         IsFightCase = false;
                         enemy.Lifepoints = 1F;
@@ -413,8 +397,9 @@ namespace Abschlussarbeit
 
                 default:
                     Console.WriteLine("That's not possible. You were too slow.");
+                    
                     MyCharacter.Lifepoints = (float)(Math.Round((MyCharacter.Lifepoints - Enemy.Hitpoints), 2));
-                    if (MyCharacter.Lifepoints > 0F)
+                    if (MyCharacter.Lifepoints > 0F && Enemy.Lifepoints > 0F)
                     {
                         Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", MyCharacter.Lifepoints);
                         Console.WriteLine("Try again. Valid inputs are: arm(a) <item>, use(u) <item>, inventory(i), fight(f), quit(q)");
@@ -422,7 +407,9 @@ namespace Abschlussarbeit
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You are dead!");
+                        Console.ResetColor();
                         QuitGame();
                     }
 
@@ -470,15 +457,18 @@ namespace Abschlussarbeit
             {
                 switch (_foundItem.Type)
                 {
-                    case "gear":
+                    case "Gear":
                         if (_foundItem.IsArmed == false)
                         {
                             if (IsFightCase == true && Enemy.Lifepoints > 0 && MyCharacter.Lifepoints > 0)
                             {
+                                //use Item 
                                 MyCharacter.Hitpoints = (float)(Math.Round((MyCharacter.Hitpoints + _foundItem.Points), 2));
                                 Console.WriteLine("You got temporarily stronger with the help of the " + _foundItem.Name + ".");
-                                GameData.Characters["Goyl"].Lifepoints = (float)(Math.Round((GameData.Characters["Goyl"].Lifepoints - MyCharacter.Hitpoints), 2));
-                                Console.WriteLine("Ouch!!!  Goyl's lifepoints: " + GameData.Characters["Goyl"].Lifepoints);
+
+                                Enemy.Lifepoints = (float)(Math.Round((Enemy.Lifepoints - MyCharacter.Hitpoints), 2));
+                                Console.WriteLine("{0}:'Ouch!!!'  Goyl's lifepoints: {1}", Enemy.Name, Enemy.Lifepoints);
+
                                 MyCharacter.Hitpoints = (float)(Math.Round((MyCharacter.Hitpoints - _foundItem.Points), 2));
                                 MyCharacter.Lifepoints = (float)(Math.Round((MyCharacter.Lifepoints - Enemy.Hitpoints), 2));
                                 Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", MyCharacter.Lifepoints);
@@ -490,7 +480,7 @@ namespace Abschlussarbeit
                             Console.WriteLine("You're already equipped with " + _foundItem.Name);
                         break;
 
-                    case "health":
+                    case "Health":
                         MyCharacter.Lifepoints = (float)(Math.Round((MyCharacter.Lifepoints + _foundItem.Points), 2));
                         Console.WriteLine("You used the healing item, new lifepoints: " + MyCharacter.Lifepoints);
                         MyCharacter.CharacterInventory.Remove(_foundItem);
