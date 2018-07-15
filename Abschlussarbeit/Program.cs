@@ -11,7 +11,9 @@ namespace Abschlussarbeit
 
             for (; ; )
             {
-                MethodStore.CheckEnemy();
+            MethodStore.CheckEnemy();
+            MethodStore.CheckCases();
+                
             }
         }
     }

@@ -114,6 +114,11 @@ namespace Abschlussarbeit
                     Console.WriteLine("{0}:'You better equipe before entering.' ");
                     break;
 
+                case "q":
+                case "quit":
+                QuitGame();
+                break;
+
                 default:
                     Console.WriteLine("{0}:'I didn't understand. What did you say? ' ");
                     TalkCases();
@@ -159,12 +164,26 @@ namespace Abschlussarbeit
             {
                 case "u":
                 case "use":
-                    Use(SeparatedInput[1]);
+                    try
+                    {
+                        Use(SeparatedInput[1]);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("You should choose an item to use.");
+                    }
                     break;
 
                 case "a":
                 case "arm":
-                    Arm(SeparatedInput[1]);
+                    try
+                    {
+                        Arm(SeparatedInput[1]);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("You should choose an item to arm.");
+                    }
                     break;
 
                 case "i":
@@ -178,6 +197,7 @@ namespace Abschlussarbeit
                     break;
 
                 default:
+
                     if (IsFightCase == true)
                     {
                         Fight(Enemy, SeparatedInput);
@@ -207,12 +227,27 @@ namespace Abschlussarbeit
 
                 case "t":
                 case "take":
-                    Take(SeparatedInput[1]);
+                    try
+                    {
+                        Take(SeparatedInput[1]);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("You should choose an item to take it.");
+                    }
                     break;
 
                 case "d":
                 case "drop":
-                    Drop(SeparatedInput[1]);
+                    try
+                    {
+                        Drop(SeparatedInput[1]);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Please choose an item to drop it.");
+                    }
+
                     break;
 
                 case "n":
@@ -316,41 +351,42 @@ namespace Abschlussarbeit
                 if (character.CurrentLocation == MyCurrentRoom)
                 {
                     string name = character.Name;
-                        switch (name)
-                        {
-                            case "Goyl":
-                                if (InteractionCounter == 0)
-                                {
-                                    Enemy = character;
-                                    IsFightCase = true;
-                                    Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
-                                    CheckCases();
-                                    InteractionCounter++;
-                                }
-                                CheckCases();
-                                break;
-
-                            case "Kamien":
+                    switch (name)
+                    {
+                        case "Goyl":
+                            if (InteractionCounter == 0)
+                            {
                                 Enemy = character;
                                 IsFightCase = true;
-                                Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
+                                Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
                                 CheckCases();
-                                QuitGame();
-                                break;
+                                InteractionCounter++;
+                            }
+                            CheckCases();
+                            break;
 
-                            case "Fox":
-                                if (InteractionCounter == 0)
-                                {
-                                    Talk();
-                                    InteractionCounter++;
-                                }
-                                CheckCases();
-                                break;
-                        }      
+                        case "Kamien":
+                            Enemy = character;
+                            IsFightCase = true;
+                            Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
+                            CheckCases();
+                            QuitGame();
+                            break;
+
+                        case "Fox":
+                            if (InteractionCounter == 0)
+                            {
+                                Talk();
+                                InteractionCounter++;
+                            }
+                            CheckCases();
+                            break;
+                        default:
+                            CheckCases();
+                            break;
+                    }
                 }
-                CheckCases();
             }
-            //CheckCases();
         }
         public static void Fight(GameData.Character enemy, string[] input)
         {
@@ -397,7 +433,7 @@ namespace Abschlussarbeit
 
                 default:
                     Console.WriteLine("That's not possible. You were too slow.");
-                    
+
                     MyCharacter.Lifepoints = (float)(Math.Round((MyCharacter.Lifepoints - Enemy.Hitpoints), 2));
                     if (MyCharacter.Lifepoints > 0F && Enemy.Lifepoints > 0F)
                     {
