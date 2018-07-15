@@ -7,12 +7,12 @@ namespace Abschlussarbeit
     {
         static void Main(string[] args)
         {
-            MethodStore.GameIntro();
+            MethodStore.LoadGameDAta();
 
             for (; ; )
             {
-            MethodStore.CheckEnemy();
-            MethodStore.CheckCases();
+            MethodStore.CheckCharactersInRoom();
+            MethodStore.InputPrompt();
                 
             }
         }
