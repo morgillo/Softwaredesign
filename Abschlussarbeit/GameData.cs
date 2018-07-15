@@ -40,11 +40,11 @@ namespace Abschlussarbeit
             Room Forest = new Room
             (
                 "Forest",
-                "You just entered the Forest. The weather was very muggy and sticky."
+                "You just entered the Forest. The weather is very muggy and sticky. Your friend is waiting for you."
             );
             Health Berry = new Health
             (
-                "Berry", "Health", "info", 0.6F, false
+                "Berry", "Health", "Gives you lifepoints if used", 0.6F, false
             );
             Forest.RoomInv.Add(Berry);
 
@@ -52,18 +52,18 @@ namespace Abschlussarbeit
             Room Bazaar = new Room
             (
                "Bazaar",
-                "You arrived at the Bazaar"
+                "You arrived at the Bazaar. It's loud and chaotic."
             );
 
             //Room 4
             Room Valley = new Room
             (
                 "Valley",
-                "You are at the Valley"
+                "You arrived at the Valley."
             );
             Gear Arrow = new Gear
             (
-                "Arrow", "Gear", "info", 0.3F, false
+                "Arrow", "Gear", "Adds hitpoints if used/armed", 0.3F, false
             );
             Valley.RoomInv.Add(Arrow);
 
@@ -71,14 +71,14 @@ namespace Abschlussarbeit
             Room GoylsCave = new Room
             (
                 "Goyls Cave",
-                "You entered the Goyls Cave"
+                "You entered the Goyls Cave. It's cold and dark."
             );
 
             //Room6
             Room Dungeon = new Room
             (
                 "Dungeon",
-                "You are in Dugeon"
+                "You entered the Dungeon. There is your brother."
 
             );
 
@@ -432,7 +432,7 @@ namespace Abschlussarbeit
             );
             Gear Bow = new Gear
            (
-               "Bow", "Gear", "info", 0.1F, false
+               "Bow", "Gear", "Adds hitspoint if used/armed", 0.1F, false
            );
             Goyl.CharacterInventory.Add(Bow);
 

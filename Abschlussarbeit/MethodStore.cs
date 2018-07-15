@@ -70,6 +70,7 @@ namespace Abschlussarbeit
                             IsFighting = true;
                             Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
                             InputPrompt();
+                            Console.WriteLine("Great! Your brother is free!");
                             QuitGame();
                             break;
 
