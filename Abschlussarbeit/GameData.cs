@@ -19,7 +19,7 @@ namespace Abschlussarbeit
 
         public static Dictionary<string, Room> rooms;
         public static Dictionary<string, Character> characters;
-        //public static Dictionary<string, Item> items;
+        public static Dictionary<string, Item> items =new Dictionary<string, Item>();
 
         public class Room
         {
@@ -53,7 +53,7 @@ namespace Abschlussarbeit
             );
             Health Berry = new Health
             (
-                "Berry", "Health", "info", 0.3F, "Heal!"
+                "Berry", "Health", "info", 0.3F, false
             );
             Forest._roomInv.Add(Berry);
 
@@ -112,6 +112,9 @@ namespace Abschlussarbeit
             rooms["Bazaar"] = Bazaar;
             rooms["Goyls Cave"] = GoylsCave;
             rooms["Valley"] = Valley;
+
+            items["Arrow"] = Arrow;
+            items["Berry"] = Berry;
         }
 
         //Character
@@ -166,39 +169,32 @@ namespace Abschlussarbeit
             public string _name;
             public string _type;
             public string _information;
+            public float Points;
+            public bool IsArmed;
+           
         }
 
 
         public class Health : Item
         {
-            public float _lifepoints;
-            string _placeholder;
-            public Health(string name, string type, string information, float lifepoints, string placeholder)
+            public Health(string name, string type, string information, float lifepoints, bool isarmed)
             {
                 this._name = name;
                 this._type = type;
                 this._information = information;
-                this._lifepoints = lifepoints;
-                this._placeholder = placeholder;
-            }
-
-
-            public static void use()
-            {
-                //adds lifepoints
+                this.Points = lifepoints;
+                this.IsArmed = isarmed;
             }
         }
         public class Gear : Item
         {
-            public float _hitpoints;
-            public bool _isArmed;
             public Gear(string name, string type, string information, float hitpoints, bool isArmed)
             {
                 this._name = name;
                 this._type = type;
                 this._information = information;
-                this._hitpoints = hitpoints;
-                this._isArmed = isArmed;
+                this.Points = hitpoints;
+                this.IsArmed = isArmed;
             }
         }
 
@@ -233,6 +229,10 @@ namespace Abschlussarbeit
             (
             "Fox", 1F, 0F, "Fox is your friend.", rooms["Forest"]
             );
+
+            items["Bow"] = Bow;
+            
+
 
             characters = new Dictionary<string, Character>();
             characters["Reckless"] = Reckless;

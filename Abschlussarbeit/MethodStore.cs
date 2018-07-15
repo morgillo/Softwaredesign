@@ -12,7 +12,6 @@ namespace Abschlussarbeit
         public static int characterNumber;
         public static int InteractionCounter = 0;
 
-
         public static void GameIntro()
         {
             Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The last thing you can remember is your brother beeing kidnapped by the Goyls. Save him!");
@@ -81,17 +80,21 @@ namespace Abschlussarbeit
 
         public static void DisplayInventory()
         {
+
             Console.WriteLine("Take a look at your inventory:");
             if (GameData.characters["Reckless"]._characterInventory.Count > 0)
             {
-                Console.WriteLine("-----------------------------------------------------------------------------------------------");
-                Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  |  {3,-10}  |  {4,-10}  ", "Name", "Type", "Information", "Armed?", "Hit/Heal"));
-                Console.WriteLine("-----------------------------------------------------------------------------------------------");
+                Console.WriteLine("---------------------------------------------------------------------------------");
+                Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  ", "Name", "Type", "Information"));
+                Console.WriteLine("---------------------------------------------------------------------------------");
+
                 foreach (var item in GameData.characters["Reckless"]._characterInventory)
                 {
-                    Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  |  {3,-10}  |  {4,-10}  ", item._name, item._type, item._information, 1, 1));
+
+                    Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-30}  ", item._name, item._type, item._information));
+
                 }
-                Console.WriteLine("-----------------------------------------------------------------------------------------------");
+                Console.WriteLine("---------------------------------------------------------------------------------");
             }
             else
             {
@@ -164,12 +167,12 @@ namespace Abschlussarbeit
             {
                 case "u":
                 case "use":
-                    //Use(string [] input);
+                    Use(separatedInput[1]);
                     break;
 
                 case "a":
                 case "arm":
-                    //Arm(string [] input);
+                    Arm(separatedInput[1]);
                     break;
 
                 case "i":
@@ -406,7 +409,7 @@ namespace Abschlussarbeit
                         {
                             GameData.characters["Reckless"]._characterInventory.Add(enemy._characterInventory[0]);
                             enemy._characterInventory.Remove(enemy._characterInventory[0]);
-                            Console.WriteLine("Awesome! You snatched the {0}",enemy._characterInventory[0]);
+                            Console.WriteLine("Awesome! You snatched the {0}", enemy._characterInventory[0]);
                         }
                         isFightCase = false;
                         enemy._lifepoints = 1F;
@@ -432,6 +435,78 @@ namespace Abschlussarbeit
                     break;
             }
 
+        }
+
+        public static void Arm(string input)
+        
+        {
+            input = separatedInput[1];
+            GameData.Item foundItem = GameData.characters["Reckless"]._characterInventory.Find(x => x._name.ToLower().Contains(input));
+            if (foundItem != null)
+            {
+                switch (foundItem._type)
+                {
+                    case "gear":
+                    if(foundItem.IsArmed == false)
+                    {
+                        GameData.characters["Reckless"]._hitpoints =  (float)(Math.Round((GameData.characters["Reckless"]._hitpoints + foundItem.Points), 2));
+                        foundItem.IsArmed = true;
+                        Console.WriteLine("You successfully equipped the " + foundItem._name + ", new hitpoints: " + GameData.characters["Reckless"]._hitpoints);
+                    }
+                    else
+                        Console.WriteLine("You're already equipped with " + foundItem._name);
+                    break;
+
+                    case "health":
+                        Console.WriteLine("Health! You can not equip this stuff... Try to use it damnit!");
+                    break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid item!");
+            }
+        }
+
+        public static void Use(string input)
+        {
+            input = separatedInput[1];
+            GameData.Item foundItem = GameData.characters["Reckless"]._characterInventory.Find(x => x._name.ToLower().Contains(input));
+            if (foundItem != null)
+            {
+                switch (foundItem._type)
+                {
+                    case "gear":
+                    if(foundItem.IsArmed == false)
+                    {
+                        if (isFightCase == true && _enemy._lifepoints > 0 && GameData.characters["Reckless"]._lifepoints > 0)
+                        {
+                            GameData.characters["Reckless"]._hitpoints =  (float)(Math.Round((GameData.characters["Reckless"]._hitpoints + foundItem.Points), 2));
+                            Console.WriteLine("You got temporarily stronger with the help of the " + foundItem._name + ".");
+                            GameData.characters["Goyl"]._lifepoints = (float)(Math.Round((GameData.characters["Goyl"]._lifepoints - GameData.characters["Reckless"]._hitpoints), 2));
+                            Console.WriteLine("Ouch!!!  Goyl's lifepoints: " + GameData.characters["Goyl"]._lifepoints);
+                            GameData.characters["Reckless"]._hitpoints = (float)(Math.Round((GameData.characters["Reckless"]._hitpoints - foundItem.Points), 2));
+                            GameData.characters["Reckless"]._lifepoints = (float)(Math.Round((GameData.characters["Reckless"]._lifepoints - _enemy._hitpoints), 2));
+                            Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", GameData.characters["Reckless"]._lifepoints);
+                        }
+                        else
+                            Console.WriteLine("There's no enemy to fight! Try another time.");
+                    }
+                    else
+                        Console.WriteLine("You're already equipped with " + foundItem._name);
+                    break;
+
+                    case "health":
+                        GameData.characters["Reckless"]._lifepoints =  (float)(Math.Round((GameData.characters["Reckless"]._lifepoints + foundItem.Points), 2));
+                        Console.WriteLine("You used the healing item, new lifepoints: " + GameData.characters["Reckless"]._lifepoints);
+                        GameData.characters["Reckless"]._characterInventory.Remove(foundItem);
+                    break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid item!");
+            }
         }
 
         public static void QuitGame()
