@@ -13,9 +13,6 @@ namespace Abschlussarbeit
             {
                 MethodStore.CheckEnemy();   
             } 
-            
-            //MethodStore.DisplayInventory();
-            //Console.WriteLine(GameData.characters["Goyl"]._characterInventory);
         }
     }
 }
