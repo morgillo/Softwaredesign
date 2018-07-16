@@ -33,7 +33,7 @@ namespace Abschlussarbeit
             Room Studyroom = new Room
             (
                 "Studyroom",
-                "Your father's old studyroom. It's old and dusty."
+                "You are in your father's old studyroom. It's dusty."
             );
 
             //Room 2
@@ -44,7 +44,7 @@ namespace Abschlussarbeit
             );
             Health Berry = new Health
             (
-                "Berry", "Health", "Gives you lifepoints if used", 0.6F, false
+                "Berry", "Health", "Gives you lifepoints if used", 0.5F, false
             );
             Forest.RoomInv.Add(Berry);
 
@@ -73,13 +73,17 @@ namespace Abschlussarbeit
                 "Goyls Cave",
                 "You entered the Goyls Cave. It's cold and dark."
             );
+            Health Chocolate = new Health
+            (
+                "Chocolate", "Health", "Gives you lifepoints if used", 0.5F, false
+            );
+            GoylsCave.RoomInv.Add(Chocolate);
 
             //Room6
             Room Dungeon = new Room
             (
                 "Dungeon",
                 "You entered the Dungeon. There is your brother."
-
             );
 
             //Room neighbours 
@@ -106,9 +110,11 @@ namespace Abschlussarbeit
             Rooms["Bazaar"] = Bazaar;
             Rooms["Goyls Cave"] = GoylsCave;
             Rooms["Valley"] = Valley;
+            Rooms["Dungeon"] = Dungeon;
 
             Items["Arrow"] = Arrow;
             Items["Berry"] = Berry;
+            Items["Chocolate"] = Chocolate;
         }
 
         public class Character
@@ -190,7 +196,7 @@ namespace Abschlussarbeit
                 Character myCharacter = MethodStore.MyCharacter;
                 enemy = MethodStore.Enemy;
                 input = MethodStore.SeparatedInput;
-                
+
 
                 switch (input[0])
                 {
@@ -211,6 +217,7 @@ namespace Abschlussarbeit
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("You are dead!");
                                 MethodStore.QuitGame();
                             }
@@ -218,17 +225,21 @@ namespace Abschlussarbeit
                         }
                         else
                         {
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("You defeated the {0}! Great!", enemy.Name);
+                            Console.ResetColor();
                             if (enemy.CharacterInventory.Count != 0)
                             {
                                 myCharacter.CharacterInventory.Add(enemy.CharacterInventory[0]);
                                 enemy.CharacterInventory.Remove(enemy.CharacterInventory[0]);
+                                Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Awesome! You snatched his inventory");
+                                Console.ResetColor();
+                                MethodStore.InputPrompt();
                             }
                             MethodStore.IsFighting = false;
                             enemy.Lifepoints = 1F;
                         }
-                        MethodStore.InputPrompt();
                         break;
 
                     default:
@@ -269,7 +280,9 @@ namespace Abschlussarbeit
 
             public static void Talk()
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("{0}: 'Youre brother needs help. To defeat the Goyls King you better equipe. Did you already equipe?", GameData.Characters["Fox"].Name);
+                Console.ResetColor();
                 TalkCases();
             }
             public static void TalkCases()
@@ -279,21 +292,26 @@ namespace Abschlussarbeit
                 {
                     case "y":
                     case "yes":
-                        Console.WriteLine("{0}: 'Perfect. Go ahead and good Luck!'");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("{0}: 'Perfect. Go ahead and good Luck!'", GameData.Characters["Fox"].Name);
+                        Console.ResetColor();
                         break;
 
                     case "n":
                     case "no":
-                        Console.WriteLine("{0}:'You better equipe before entering.' ");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("{0}:'Go to the valley first. I left something there for you.' ", GameData.Characters["Fox"].Name);
+                        Console.ResetColor();
                         break;
-
                     case "q":
                     case "quit":
                         MethodStore.QuitGame();
                         break;
 
                     default:
-                        Console.WriteLine("{0}:'I didn't understand. What did you say? ' ");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("{0}:'I didn't understand. What did you say? Yes(y) or no(n)?' ", GameData.Characters["Fox"].Name);
+                        Console.ResetColor();
                         TalkCases();
                         break;
                 }
@@ -346,7 +364,9 @@ namespace Abschlussarbeit
 
                         case "Health":
                             myCharacter.Lifepoints = (float)(Math.Round((myCharacter.Lifepoints + foundItem.Points), 2));
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("You used the healing item, new lifepoints: " + myCharacter.Lifepoints);
+                            Console.ResetColor();
                             myCharacter.CharacterInventory.Remove(foundItem);
                             break;
                     }
@@ -356,8 +376,6 @@ namespace Abschlussarbeit
                     Console.WriteLine("Invalid item!");
                 }
             }
-
-
         }
         public class Health : Item
         {
@@ -396,14 +414,17 @@ namespace Abschlussarbeit
                             {
                                 myCharacter.Hitpoints = (float)(Math.Round((myCharacter.Hitpoints + foundItem.Points), 2));
                                 foundItem.IsArmed = true;
+
+                                Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("You successfully equipped the " + foundItem.Name + ", new hitpoints: " + myCharacter.Hitpoints);
+                                Console.ResetColor();
                             }
                             else
                                 Console.WriteLine("You're already equipped with " + foundItem.Name);
                             break;
 
                         case "Health":
-                            Console.WriteLine("Health! You can not equip this stuff... Try to use it damnit!");
+                            Console.WriteLine("Health Item! You can not equip this stuff! Try to use");
                             break;
                     }
                 }
@@ -439,7 +460,7 @@ namespace Abschlussarbeit
             //Enemy2
             Enemy Kamien = new Enemy
             (
-            "Kamien", 1F, 0.3F, "Kamien is your biggest enemy", Rooms["Goyls Cave"]
+            "Kamien", 1F, 0.3F, "Kamien is your biggest enemy", Rooms["Dungeon"]
             );
 
             //Helper

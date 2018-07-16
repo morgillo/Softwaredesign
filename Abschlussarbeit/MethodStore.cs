@@ -21,14 +21,17 @@ namespace Abschlussarbeit
 
         public static void GameIntro()
         {
-            Console.WriteLine("You wake up in your father's old study. It's dark and dusty. The scream of your brother is the last thing you can remeber. He has been kidnapped by the Goyls.");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Environment.NewLine + "THE MIRRORWOLD"+ Environment.NewLine);
+            Console.ResetColor();
+            Console.WriteLine("The sun rises, and your father's old studyroom takes shape, revealing its details. You wake up lying on the floor next to the portal leading to the paralell world.");
+            Console.WriteLine("You jump up diorientet and very much confused. It's all a blur. The last thing you can remember is your brother's scream. He has been kidnapped by the Goyls...");
             Look(MyCurrentRoom);
         }
         public static void Look(GameData.Room room)
         {
             room = MyCurrentRoom;
-
-            Console.WriteLine(room.Information);
+            Console.WriteLine(Environment.NewLine + room.Information);
 
             if (room.RoomInv.Count != 0)
             {
@@ -40,6 +43,7 @@ namespace Abschlussarbeit
             }
             else
                 Console.WriteLine("There is no item in this place.");
+
         }
 
 
@@ -58,7 +62,9 @@ namespace Abschlussarbeit
                             {
                                 Enemy = character;
                                 IsFighting = true;
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("There is an angry Goyl. He's coming toward you. Defeat him!");
+                                Console.ResetColor();
                                 InputPrompt();
                                 InteractionCounter++;
                             }
@@ -68,9 +74,12 @@ namespace Abschlussarbeit
                         case "Kamien":
                             Enemy = character;
                             IsFighting = true;
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Kamien the King of the Goyls wants to kill you. Fight him!");
+                            Console.ResetColor();
                             InputPrompt();
-                            Console.WriteLine("Great! Your brother is free!");
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Congratutalions! Your brother is free!");
                             QuitGame();
                             break;
 
@@ -162,6 +171,7 @@ namespace Abschlussarbeit
         {
 
             Console.WriteLine("Take a look at your inventory:");
+            Console.ForegroundColor = ConsoleColor.White;            
             if (MyCharacter.CharacterInventory.Count > 0)
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------");
@@ -177,6 +187,7 @@ namespace Abschlussarbeit
             {
                 Console.WriteLine(Environment.NewLine + "Woops! Your inventory is empty...");
             }
+            Console.ResetColor();
 
         }
 
@@ -287,14 +298,14 @@ namespace Abschlussarbeit
         {
             List<string> commands = new List<string>()
             {
-            "help(i), look(l), inventory(i),",
-            "take(t) <item>, drop(d), <item> arm(a), <item> use(u), <item>," ,
-            "north(n), east(e), south(s,) west(w)",
-            "fight(f) and quit(q)"
+            "help(i), look(l), inventory(i), take(t) <item>, drop(d), <item> arm(a), <item> use(u), <item>, fight(f)" ,
+            "north(n), east(e), south(s,) west(w) and quit(q)"
             };
-
+            Console.WriteLine("The commands are:");
+            Console.ForegroundColor = ConsoleColor.Blue;
             foreach (var command in commands)
                 Console.WriteLine(command);
+            Console.ResetColor();
         }
 
         public static void Take(string input)
@@ -304,7 +315,9 @@ namespace Abschlussarbeit
             GameData.Item foundItem = MyCurrentRoom.RoomInv.Find(x => x.Name.ToLower().Contains(input));
             if (foundItem != null)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("You added {0} in your inventory.", foundItem.Name);
+                Console.ResetColor();
                 MyCharacter.CharacterInventory.Add(foundItem);
                 MyCurrentRoom.RoomInv.Remove(foundItem);
             }
