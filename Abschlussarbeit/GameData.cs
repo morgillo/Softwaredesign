@@ -42,11 +42,11 @@ namespace Abschlussarbeit
                 "Forest",
                 "You just entered the Forest. The weather is very muggy and sticky. Your friend is waiting for you."
             );
-            Health Berry = new Health
+            Health Grape = new Health
             (
-                "Berry", "Health", "Gives you lifepoints if used", 0.5F, false
+                "Grape", "Health", "Gives you lifepoints if used", 0.5F, false
             );
-            Forest.RoomInv.Add(Berry);
+            Forest.RoomInv.Add(Grape);
 
             //Room 3
             Room Bazaar = new Room
@@ -113,7 +113,7 @@ namespace Abschlussarbeit
             Rooms["Dungeon"] = Dungeon;
 
             Items["Arrow"] = Arrow;
-            Items["Berry"] = Berry;
+            Items["Grape"] = Grape;
             Items["Chocolate"] = Chocolate;
         }
 
@@ -282,7 +282,7 @@ namespace Abschlussarbeit
             public static void Talk()
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("{0}: 'Youre brother needs help. To defeat the Goyls King you better equipe. Did you already equipe?", GameData.Characters["Fox"].Name);
+                Console.WriteLine("{0}: 'Your brother needs help. To defeat the Goyls King you better equipe. Did you already equipe?", GameData.Characters["Fox"].Name);
                 Console.ResetColor();
                 TalkCases();
             }
