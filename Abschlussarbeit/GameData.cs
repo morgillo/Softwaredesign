@@ -221,7 +221,7 @@ namespace Abschlussarbeit
                                 Console.WriteLine("You are dead!");
                                 MethodStore.QuitGame();
                             }
-
+                            //MethodStore.InputPrompt();
                         }
                         else
                         {
@@ -235,18 +235,18 @@ namespace Abschlussarbeit
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("Awesome! You snatched his inventory");
                                 Console.ResetColor();
-                                MethodStore.InputPrompt();
                             }
                             MethodStore.IsFighting = false;
                             enemy.Lifepoints = 1F;
                         }
+                        MethodStore.InputPrompt();
                         break;
 
                     default:
                         Console.WriteLine("That's not possible. You were too slow.");
 
                         myCharacter.Lifepoints = (float)(Math.Round((myCharacter.Lifepoints - enemy.Hitpoints), 2));
-                        if (myCharacter.Lifepoints > 0F && enemy.Lifepoints > 0F)
+                        if (myCharacter.Lifepoints > 0F)
                         {
                             Console.WriteLine("You have been hit! - Your Lifepoints: {0} ", myCharacter.Lifepoints);
                             Console.WriteLine("Try again. Valid inputs are: arm(a) <item>, use(u) <item>, inventory(i), fight(f), quit(q)");
@@ -262,6 +262,7 @@ namespace Abschlussarbeit
 
                         break;
                 }
+                
 
             }
 

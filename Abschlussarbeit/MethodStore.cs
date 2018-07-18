@@ -97,6 +97,7 @@ namespace Abschlussarbeit
                     }
                 }
             }
+            InputPrompt();
         }
 
         public static void InputPrompt()
@@ -175,7 +176,7 @@ namespace Abschlussarbeit
             if (MyCharacter.CharacterInventory.Count > 0)
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------");
-                Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-10}  |  {3,-10}  |  {4,-10}  ", "Name", "Type", "Healing", "Armed?", "Information"));
+                Console.WriteLine(String.Format("  {0,-10}  |  {1,-10}  |  {2,-10}  |  {3,-10}  |  {4,-10}  ", "Name", "Type", "Points", "Armed?", "Information"));
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------");
                 foreach (var item in MyCharacter.CharacterInventory)
                 {
@@ -298,7 +299,7 @@ namespace Abschlussarbeit
         {
             List<string> commands = new List<string>()
             {
-            "help(i), look(l), inventory(i), take(t) <item>, drop(d), <item> arm(a), <item> use(u), <item>, fight(f)" ,
+            "help(h), look(l), inventory(i), take(t) <item>, drop(d), <item> arm(a), <item> use(u), <item>, fight(f)" ,
             "north(n), east(e), south(s,) west(w) and quit(q)"
             };
             Console.WriteLine("The commands are:");

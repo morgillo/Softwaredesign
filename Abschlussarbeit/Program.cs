@@ -10,11 +10,8 @@ namespace Abschlussarbeit
             MethodStore.LoadGameDAta();
 
             for (; ; )
-            {
-            MethodStore.CheckCharactersInRoom();
-            MethodStore.InputPrompt();
-                
-            }
+            MethodStore.CheckCharactersInRoom();   
+            
         }
     }
 }
