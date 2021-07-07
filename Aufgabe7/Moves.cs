@@ -21,7 +21,7 @@ namespace Aufgabe7
         public static void GiveInput()
         {
             
-            Console.WriteLine("Player " + Turn(count) + ", please choose fieldnumber.");
+            Console.WriteLine("Player " + Turn(count) + ", please choose fieldnumber."); Turn wird hier versteckt, nicht gut
 
             try
             {
@@ -44,31 +44,31 @@ namespace Aufgabe7
                 GiveInput();
             }
 
-            switch (Checking.inputChecked)
+            switch (Checking.inputChecked)  inputChecked ist etwas "versteckt", besser wäre int checked = Checking.CheckInput()
             {
-                case 1:
+                case 1:     -> 1,0,-1 sind etwas "magische Zahlen", ich muss Code lesen um herauszufinden, was sie bedeuten
                     Field.gameData[Checking.input - 1] = turn;
                     count++;
-                    turn++;
+                    turn++; ?????
 
                     do
                     {
                         Checking.CheckWin();
                         Console.Clear();
                         Field.PrintGameData();
-                        GiveInput();
+                        GiveInput();  <- Rekursion für diese Aufgabe eher irreführend
                     }
                     while (count < 9);
                     break;
 
                 case 0:
                     Console.WriteLine("Already taken. Try again!");
-                    GiveInput();
+                    GiveInput(); <- Dopplung
                     break;
 
                 case -1:
                     Console.WriteLine("Out of Range. Try again!");
-                    GiveInput();
+                    GiveInput(); <- Dopplung
                     break;
             }
         }
